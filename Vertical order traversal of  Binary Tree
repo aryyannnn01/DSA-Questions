@@ -1,0 +1,65 @@
+//Problem 987 --> Vertical order traversal of  Binary Tree
+
+public List<List<Integer>> verticalTraversal(TreeNode root){
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        if (root == null) {
+            return ans;
+        }
+
+        int col = 0;
+
+        Queue<Object[]> queue = new ArrayDeque<>();
+        Map<Integer, List<int[]>> map = new HashMap();
+
+        queue.add(new Object[]{root, 0, 0});
+
+        int min = 0;
+        int max = 0;
+
+        while (!queue.isEmpty()) {
+            Object[] arr = queue.poll();
+            TreeNode node = (TreeNode) arr[0];
+            int row = (int) arr[1];
+            col = (int) arr[2];
+            
+            if (root != null) {
+                if (!map.containsKey(col)) {
+                    map.put(col, new ArrayList<>());
+                }
+
+                map.putIfAbsent(col, new ArrayList<>());
+                map.get(col).add(new int[]{row,node.val});
+
+                min = Math.min(min, col);
+                max = Math.max(max, col);
+
+                if (node.left != null) 
+                    queue.offer(new Object[]{node.left, row + 1, col - 1});
+
+                if (node.right != null)  
+                    queue.offer(new Object[]{node.right, row + 1, col + 1});
+
+            }
+        }
+
+        for (int i = min; i <= max; i++) {
+            List<int[]> list = map.get(i);
+
+            Collections.sort(list, (a, b) -> {
+            if (a[0] == b[0])
+                return a[1] - b[1];
+                return a[0] - b[0];
+            });
+
+            List<Integer> colList = new ArrayList<>();
+            for (int[] pair : list) {
+                colList.add(pair[1]);
+            }
+
+            ans.add(colList);
+        }
+
+
+        return ans;
+
+    }
