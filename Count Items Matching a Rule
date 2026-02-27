@@ -10,8 +10,8 @@ class Solution {
         if(ruleKey.equals("name")){
             col = 2;
         }
-        for(int row = 0; i < items.size(); row++){
-            if(item.get(row).get(col).equals(ruleKey)){
+        for(int row = 0; row < items.size(); row++){
+            if(items.get(row).get(col).equals(ruleValue)){
                 count++;
             }
         }
