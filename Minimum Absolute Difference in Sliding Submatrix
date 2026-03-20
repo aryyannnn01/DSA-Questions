@@ -1,0 +1,42 @@
+3567. Minimum Absolute Difference in Sliding Submatrix
+
+class Solution {
+    public int[][] minAbsDiff(int[][] grid, int k) {
+        int m = grid.length;
+        int n = grid[0].length;
+
+        int[][] result = new int[m-k+1][n-k+1];
+        
+        for(int i = 0; i <= m-k; i++){
+            for(int j = 0; j <= n-k; j++){
+                
+                TreeSet<Integer> set = new TreeSet<>();
+
+
+                for(int a = i; a <= i + k - 1; a++){
+                    for(int b = j; b <= j + k - 1; b++){
+                        set.add(grid[a][b]);
+                    }
+                }
+
+                if(set.size() == 1){
+                    result[i][j] = 0;
+                    continue;
+                }
+
+                int minAbsDiff = Integer.MAX_VALUE;
+                int prev = set.first();
+
+                for(int curr : set){
+                    if(curr != prev){
+                        minAbsDiff = Math.min(minAbsDiff, curr - prev);
+                        prev = curr;
+                    }
+                }
+
+                result[i][j] = minAbsDiff;
+            }
+        }
+        return result;
+    }
+}
