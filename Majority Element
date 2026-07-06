@@ -1,6 +1,6 @@
 169. Majority Element
 
-//APPROACH - 2
+//APPROACH - 1
 class Solution {
     public int majorityElement(int[] nums) {
         Arrays.sort(nums);
