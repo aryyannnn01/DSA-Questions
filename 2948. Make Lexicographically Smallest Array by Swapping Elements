@@ -1,0 +1,32 @@
+2948. Make Lexicographically Smallest Array by Swapping Elements
+
+class Solution {
+    public int[] lexicographicallySmallestArray(int[] nums, int limit) {
+        int[] sorted = nums.clone();
+        Arrays.sort(sorted);
+
+        List<List<Integer>> groups = new ArrayList<>();
+        Map<Integer, Integer> groupMap = new HashMap<>();
+
+        int group = 0;
+        groups.add(new ArrayList<>());
+
+        for(int i = 0; i < sorted.length; i++){
+            if(i > 0 && sorted[i] - sorted[i-1] > limit){
+                group++;
+                groups.add(new ArrayList<>());
+            }
+
+            groups.get(group).add(sorted[i]);
+            groupMap.put(sorted[i], group);
+        }
+
+        int[] index = new int[groups.size()];
+        for(int i = 0; i < nums.length; i++){
+            int g = groupMap.get(nums[i]);
+            nums[i] = groups.get(g).get(index[g]++);
+        }
+
+        return nums;
+    }
+}
