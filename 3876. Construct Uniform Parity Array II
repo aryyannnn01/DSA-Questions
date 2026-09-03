@@ -1,0 +1,15 @@
+3876. Construct Uniform Parity Array II
+
+class Solution {
+    public boolean uniformArray(int[] nums1) {
+        int minEle = Integer.MAX_VALUE;
+        int minOdd = 0;
+
+        for(int num: nums1){
+            minEle = Math.min(minEle, num);
+            if(num % 2 == 1) minOdd++;
+        }
+
+        return minEle % 2 != 0 || minOdd == 0;
+    }
+}
