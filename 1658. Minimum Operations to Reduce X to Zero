@@ -1,0 +1,42 @@
+1658. Minimum Operations to Reduce X to Zero
+
+class Solution {
+    public int minOperations(int[] nums, int x) {
+        int total = 0;
+        for(int num : nums){
+            total += num;
+        }
+        int target = total - x;
+        if(target < 0){
+            return -1;
+        }
+
+        if(target == 0){
+            return nums.length;
+        }
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        int prefixSum = 0;
+        int maxLength = -1;
+
+        map.put(0, -1);
+        for(int i = 0; i < nums.length; i++){
+            prefixSum += nums[i];
+            int req = prefixSum - target;
+
+            if(map.containsKey(req)){
+                int length = i - map.get(req);
+                maxLength = Math.max(maxLength, length);
+            }
+
+            if(!map.containsKey(prefixSum)){
+                map.put(prefixSum, i);
+            }
+        }
+        if(maxLength == -1){
+            return -1;
+        }
+
+        return nums.length - maxLength;
+    }
+}
