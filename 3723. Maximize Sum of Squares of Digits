@@ -1,0 +1,28 @@
+3723. Maximize Sum of Squares of Digits
+
+class Solution {
+    public String maxSumOfSquares(int num, int sum) {
+        if(sum > num * 9){
+            return "";
+        }
+
+        StringBuilder result = new StringBuilder();
+        while(sum >= 9){
+            result.append('9');
+            sum = sum - 9;
+            num = num - 1;
+        }
+
+        if(sum > 0){
+            result.append(sum);
+            num = num - 1;
+        }
+
+        while(num > 0){
+            result.append('0');
+            num--;
+        }
+
+        return result.toString();
+    }
+}
