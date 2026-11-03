@@ -1,0 +1,19 @@
+3736. Minimum Moves to Equal Array Elements III
+
+class Solution {
+    public int minMoves(int[] nums) {
+        int count = 0;
+        int max = nums[0];
+        for(int num : nums){
+            if(num > max){
+                max = num;
+            }
+        }
+
+        for(int num : nums){
+            count += max - num;
+        }
+
+        return count;
+    }
+}
